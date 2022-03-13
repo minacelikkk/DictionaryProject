@@ -1,0 +1,39 @@
+﻿@using Entities.Concrete
+@model List<About>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    string status = "";
+    string statusColor = "";
+}
+<h2>Hakkımda Veri Listesi</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Hakkımda Başlığı</th>
+        <th>Durum</th>
+        <th>Aktif/Pasif Yap</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.AboutStatus)
+        {
+            status = "Pasif Yap";
+            statusColor = "btn-secondary";
+        }
+        else
+        {
+            status = "Aktif Yap";
+            statusColor = "btn-success";
+        }
+        <tr>
+            <td>@item.AboutId</td>
+            <td>@item.AboutDetails1</td>
+            <td>@item.AboutStatus</td>
+            <td><a href="/About/AboutStatusUpdate/@item.AboutId" class="btn @statusColor">@status</a></td>
+        </tr>
+    }
+</table>
+@Html.Action("AboutPartial", "About")
